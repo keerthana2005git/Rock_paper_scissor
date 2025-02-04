@@ -1,0 +1,49 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+
+using namespace std;
+
+// Function to get computer choice
+string getComputerChoice() {
+    string choices[] = {"Rock", "Paper", "Scissor"};
+    return choices[rand() % 3];
+}
+
+// Function to determine the winner
+string determineWinner(string userChoice, string computerChoice) {
+    if (userChoice == computerChoice) {
+        return "It's a tie!";
+    }
+    if ((userChoice == "Rock" && computerChoice == "Scissor") ||
+        (userChoice == "Scissor" && computerChoice == "Paper") ||
+        (userChoice == "Paper" && computerChoice == "Rock")) {
+        return "You win!";
+    }
+    return "Computer wins!";
+}
+
+int main() {
+    srand(time(0)); // Seed for random number generation
+    string userChoice;
+    
+    cout << "Enter your choice (Rock, Paper, Scissor): ";
+    cin >> userChoice;
+    
+    // Convert input to proper case to match array
+    for (auto &c : userChoice) c = tolower(c);
+    if (userChoice == "rock") userChoice = "Rock";
+    else if (userChoice == "paper") userChoice = "Paper";
+    else if (userChoice == "scissor") userChoice = "Scissor";
+    else {
+        cout << "Invalid choice!" << endl;
+        return 1;
+    }
+
+    string computerChoice = getComputerChoice();
+    
+    cout << "Computer chose: " << computerChoice << endl;
+    cout << determineWinner(userChoice, computerChoice) << endl;
+
+    return 0;
+}
